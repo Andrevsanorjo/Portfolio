@@ -85,6 +85,8 @@
       section { padding:50px 20px; }
       .profile { text-align:center; justify-content:center; }
     }
+
+    
   </style>
 </head>
 
@@ -210,21 +212,38 @@
   <p>© 2026 Andrev D Sanorjo</p>
 </footer>
 
-<script>
-  function toggleTheme() {
-    document.body.classList.toggle("light");
+<audio id="music" loop>
+  <source src="Maroon-5-Wait.mp3" type="audio/mpeg">
+</audio>
+<div class="music" onclick="toggleMusic()">🎵</div>
+  <script>
+
+    let playing = false;
+function toggleMusic() {
+  const m = document.getElementById("music");
+  playing ? m.pause() : m.play();
+  playing = !playing;
+}
+
+  const music = document.getElementById("bgMusic");
+
+  window.addEventListener("load", () => {
+    music.currentTime = 45; 
+    music.play().catch(() => {
+      console.log("Autoplay blocked");
+
+      const music = document.getElementById("bgMusic");
+
+  function startMusic() {
+    music.currentTime = 45; // chorus
+    music.play();
+    document.removeEventListener("click", startMusic);
   }
 
-  function scrollToProjects() {
-    document.getElementById("projects").scrollIntoView({ behavior: "smooth" });
-  }
-
-  window.onload = () => {
-    document.querySelectorAll(".bar span").forEach(bar => {
-      bar.style.width = bar.getAttribute("data-width");
+  document.addEventListener("click", startMusic);
     });
-  };
-</script>
+  });
 
+  </script>
 </body>
 </html>
